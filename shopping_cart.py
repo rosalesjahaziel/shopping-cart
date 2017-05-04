@@ -7,20 +7,29 @@ def get_order():
 
     return command, item
 
+def add_to_cart(item, cart):
+    if not item in cart:
+        cart[item] = 0
+    cart[item] += 1
+
+def delete_from_cart(item, cart):
+    if item in cart:
+        cart[item] -=1
+
 def process_order(order, cart):
     command, item = order
 
     if command == "a":
-        cart.append(item)
+        add_to_cart(item, cart)
     elif command == "d" and item in cart:
-        cart.remove(item)
+        delete_from_cart(item, cart)
     elif command == "q":
         return False
     
     return True
 
 def go_shopping():
-    cart = []
+    cart = dict()
     
     while True:
         order = get_order()
